@@ -1,0 +1,102 @@
+<div class="flex">
+  <app-sidebar [menuItem]="'locations'"></app-sidebar>
+  <div class="w-4/5">
+    <h1 class="text-5xl font-medium m-10">
+      Edit location
+    </h1>
+    <div class="m-10 pl-10">
+      <form #locationForm="ngForm" class="w-full max-w-4xl">
+        <div class="flex flex-wrap -mx-3 mb-6">
+          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label class="mb-2 text-sm font-medium" for="grid-country">
+              Country
+            </label>
+            <input class="p-4 w-full text-sm bg-white rounded-lg" id="grid-country" type=text placeholder="Slovakia"
+                   required [(ngModel)]="location.country" name="location.country" #country="ngModel">
+            <div [hidden]="country.valid">
+              <div class="bg-red-100 mt-2 rounded-lg py-4 px-4 text-base text-red-700 inline-flex items-center w-full"
+                   role="alert">
+                <i class="w-8 fas fa-earth-europe"></i>
+                Country name is required
+              </div>
+            </div>
+          </div>
+          <div class="w-full md:w-1/2 px-3">
+            <label class="mb-2 text-sm font-medium" for="grid-city">
+              City
+            </label>
+            <input class="p-4 w-full text-sm bg-white rounded-lg" id="grid-city" type=text placeholder="City"
+                   required [(ngModel)]="location.city" name="location.city" #city="ngModel">
+            <div [hidden]="city.valid">
+              <div class="bg-red-100 mt-2 rounded-lg py-4 px-4 text-base text-red-700 inline-flex items-center w-full"
+                   role="alert">
+                <i class="w-8 fas fa-city"></i>
+                City name is required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-wrap -mx-3 mb-6">
+          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label class="mb-2 text-sm font-medium" for="grid-street">
+              Street
+            </label>
+            <input class="p-4 w-full text-sm bg-white rounded-lg" id="grid-street" type=text placeholder="Street"
+                   required [(ngModel)]="location.street" name="location.street" #street="ngModel">
+            <div [hidden]="street.valid">
+              <div class="bg-red-100 mt-2 rounded-lg py-4 px-4 text-base text-red-700 inline-flex items-center w-full"
+                   role="alert">
+                <i class="w-8 fas fa-road"></i>
+                Street name is required
+              </div>
+            </div>
+          </div>
+          <div class="w-full md:w-1/2 px-3">
+            <label class="mb-2 text-sm font-medium" for="grid-street-number">
+              Street number
+            </label>
+            <input class="p-4 w-full text-sm bg-white rounded-lg" id="grid-street-number" type=number
+                   placeholder=5 [(ngModel)]="location.streetNumber" name="location.streetNumber"
+                   #streetNumber="ngModel">
+            <div [hidden]="streetNumber.valid && location.streetNumber>0">
+              <div class="bg-red-100 mt-2 rounded-lg py-4 px-4 text-base text-red-700 inline-flex items-center w-full"
+                   role="alert">
+                <i class="w-8 fas fa-5"></i>
+                Street number is required (positive numbers only)
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-between mt-5">
+          <button
+            class="text-white bg-royal-blue-800 hover:bg-royal-blue-600 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 duration-100 disabled:opacity-50"
+            (click)="onSubmit()" [disabled]="!locationForm.valid || location.streetNumber<=0">
+            Save
+          </button>
+          <button [hidden]="location.id===undefined"
+                  class="text-white bg-red-500 hover:bg-red-400 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 duration-100"
+                  (click)="onDelete()">
+            Delete
+          </button>
+        </div>
+        <div [hidden]="!submitted">
+          <div
+            class="bg-green-100 rounded-lg mt-5 py-5 px-6 mb-3 text-base text-green-700 inline-flex items-center w-full"
+            role="alert">
+            <i class="w-8 fas fa-circle-check"></i>
+            Submit successful
+          </div>
+        </div>
+        <div [hidden]="!deleted">
+          <div
+            class="bg-red-200 rounded-lg mt-5 py-5 px-6 mb-3 text-base text-red-700 inline-flex items-center w-full"
+            role="alert">
+            <i class="w-8 fas fa-circle-check"></i>
+            Delete successful
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

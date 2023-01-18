@@ -1,0 +1,32 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+      integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w=="
+      crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+
+<div id="menu"
+     class="md:w-64 h-screen border rounded-r-2xl bg-gradient-to-bl from-slate-50 to-royal-blue-200 shadow-md">
+  <!--LOGO start-->
+  <img src="./assets/logo.png"
+       alt="alt placeholder" class="w-16 h-16 mx-auto mb-5 rounded-full mt-5 hover:opacity-80 hover:shadow-md hover:scale-105" (click)="changeRoute('/home')">
+  <h1 class="invisible text-center md:visible">Guideman</h1>
+  <!--LOGO end-->
+  <!--NAV start-->
+  <ul class="mt-10">
+    <li id="users" class="cursor-pointer p-2 hover:bg-royal-blue-200 hover:text-gray-500 transition 50ms"
+        [ngClass]="{'bg-royal-blue-200':menuItem=='users'}" (click)="changeRoute('/users')">
+      <i class="w-8 fas fa-user p-2 bg-royal-blue-600 text-white rounded-full mx-2"></i>
+      Users
+    </li>
+    <li id="locations" class="cursor-pointer p-2 hover:bg-royal-blue-200 hover:text-gray-500 transition 50ms"
+        [ngClass]="{'bg-royal-blue-200':menuItem=='locations'}" (click)="changeRoute('/locations')">
+      <i class="w-8 fas fa-location-dot p-2 bg-royal-blue-600 text-white rounded-full mx-2"></i>
+      Locations
+    </li>
+    <li id="tours" class="block cursor-pointer p-2 hover:bg-royal-blue-200 hover:text-gray-500 transition 50ms"
+        [ngClass]="{'bg-royal-blue-200':menuItem=='tours'}" (click)="changeRoute('/tours')">
+      <i class="w-8 fas fa-person-hiking p-2 bg-royal-blue-600 text-white rounded-full mx-2"></i>
+      Tours
+    </li>
+  </ul>
+  <!--NAV end-->
+</div>

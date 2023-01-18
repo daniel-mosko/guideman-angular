@@ -1,0 +1,108 @@
+<div class="flex">
+  <app-sidebar [menuItem]="'users'"></app-sidebar>
+  <div class="w-4/5">
+    <h1 class="text-5xl font-medium m-10">
+      Users
+    </h1>
+
+    <div class="m-10 pl-10">
+      <div class="sm:-mx-6 lg:-mx-8">
+        <div [hidden]="!serverResponseError">
+          <div class="bg-red-100 mb-5 border-l-4 border-red-500 text-red-700 p-4" role="alert">
+            <p class="font-bold">Error</p>
+            <p>Error while connecting to server</p>
+          </div>
+        </div>
+        <div class="rounded-2xl">
+          <form>
+            <label
+              class="mb-2 text-sm font-medium sr-only">Search</label>
+            <div class="relative">
+              <input type="search" id="default-search"
+                     class="p-4 w-full text-sm bg-white rounded-lg"
+                     [(ngModel)]="searchBoxText"
+                     name="searchBox"
+                     (change)="onSearchChange()"
+                     placeholder="Search users">
+              <button type="submit"
+                      class="text-white absolute right-2.5 bottom-2.5 bg-royal-blue-800 hover:bg-royal-blue-600 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 duration-100"
+                      (click)="onSearchChange()">
+                Search
+              </button>
+            </div>
+          </form>
+        </div>
+        <div class="py-4">
+          <button
+            class="text-white bg-red-500 hover:bg-red-400 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 duration-100"
+            (click)="onClick()">
+            Add new
+          </button>
+          <div class="flex flex-col overflow-x-auto">
+            <table class="text-center mt-5 w-full">
+              <thead class="border-b bg-royal-blue-800">
+              <tr>
+                <th scope="col" class="text-sm font-medium text-white px-6 py-4">
+                  #
+                </th>
+                <th scope="col" class="text-sm font-medium text-white px-6 py-4">
+                  Name
+                </th>
+                <th scope="col" class="text-sm font-medium text-white px-6 py-4">
+                  Surname
+                </th>
+                <th scope="col" class="text-sm font-medium text-white px-6 py-4">
+                  Email
+                </th>
+                <th scope="col" class="text-sm font-medium text-white px-6 py-4">
+                  Tel. Number
+                </th>
+                <th scope="col" class="text-sm font-medium text-white px-6 py-4">
+                  Birth Date
+                </th>
+                <th scope="col" class="text-sm font-medium text-white px-6 py-4">
+                  Login
+                </th>
+                <th scope="col" class="text-sm font-medium text-white px-6 py-4">
+                  Action
+                </th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr class="bg-white border-b" *ngFor="let user of users">
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                  {{user.id}}
+                </td>
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  {{user.name}}
+                </td>
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  {{user.surname}}
+                </td>
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  {{user.email}}
+                </td>
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  {{user.telNumber}}
+                </td>
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  {{user.birthdate}}
+                </td>
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  {{user.login}}
+                </td>
+                <td class="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
+                  <button
+                    class="text-white right-2.5 bottom-2.5 bg-red-500 hover:bg-red-400 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 duration-100"
+                    (click)="onClick(user)">Edit
+                  </button>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

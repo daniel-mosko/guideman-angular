@@ -1,0 +1,130 @@
+<div class="flex">
+  <app-sidebar [menuItem]="'tours'"></app-sidebar>
+  <div class="w-4/5">
+    <h1 class="text-5xl font-medium m-10">
+      Edit tour
+    </h1>
+    <div class="m-10 pl-10">
+      <form #tourForm="ngForm" class="w-full max-w-4xl">
+        <div class="flex flex-wrap -mx-3 mb-6">
+          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label class="mb-2 text-sm font-medium" for="grid-country">
+              Title
+            </label>
+            <input class="p-4 w-full text-sm bg-white rounded-lg" id="grid-country" type=text
+                   placeholder="Here goes your title..."
+                   required [(ngModel)]="tour.title" name="title" #title="ngModel">
+            <div [hidden]="title.valid">
+              <div class="bg-red-100 mt-2 rounded-lg py-4 px-4 text-base text-red-700 inline-flex items-center w-full"
+                   role="alert">
+                <i class="w-8 fas fa-text-height"></i>
+                Title is required
+              </div>
+            </div>
+          </div>
+          <div class="w-full md:w-1/2 px-3">
+            <label class="mb-2 text-sm font-medium" for="grid-city">
+              Bio
+            </label>
+            <input class="p-4 w-full text-sm bg-white rounded-lg" id="grid-city" type=text
+                   placeholder="Here goes your bio ☀️"
+                   required [(ngModel)]="tour.bio" name="bio" #bio="ngModel">
+            <div [hidden]="bio.valid">
+              <div class="bg-red-100 mt-2 rounded-lg py-4 px-4 text-base text-red-700 inline-flex items-center w-full"
+                   role="alert">
+                <i class="w-8 fas fa-envelope-open-text"></i>
+                Bio is required
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap -mx-3 mb-6">
+          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label class="mb-2 text-sm font-medium">
+              Location
+            </label>
+            <select
+              class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
+              <option selected value=undefined (click)="selectLocation(undefined)"></option>
+              <option *ngFor="let location of locations" (click)="selectLocation(location)"
+                      value=location>{{location.country}}, {{location.city}}</option>
+            </select>
+            <div [hidden]="selectedLocation!==undefined">
+              <div class="bg-red-100 mt-2 rounded-lg py-4 px-4 text-base text-red-700 inline-flex items-center w-full"
+                   role="alert">
+                <i class="w-8 fas fa-earth-europe"></i>
+                Location is required
+              </div>
+            </div>
+          </div>
+          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label class="mb-2 text-sm font-medium">
+              Guideman
+            </label>
+            <select
+              class="form-select appearance-none block w-full px-3 py-1.5 text-base font-normal text-gray-700 bg-white bg-clip-padding bg-no-repeat border border-solid border-gray-300 rounded transition ease-in-out m-0 focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none">
+              <option selected value=undefined (click)="selectGuideMan(undefined)"></option>
+              <option *ngFor="let user of users" (click)="selectGuideMan(user)"
+                      value=user>{{user.name}} {{user.surname}}</option>
+            </select>
+            <div [hidden]="selectedGuideman!==undefined">
+              <div class="bg-red-100 mt-2 rounded-lg py-4 px-4 text-base text-red-700 inline-flex items-center w-full"
+                   role="alert">
+                <i class="w-8 fas fa-user"></i>
+                Guideman is required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-wrap -mx-3 mb-6">
+          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label class="mb-2 text-sm font-medium" for="grid-country">
+              Max. slots
+            </label>
+            <input class="p-4 w-full text-sm bg-white rounded-lg" id="grid-slots" type=number
+                   placeholder="Here goes your title..."
+                   required [(ngModel)]="tour.maxSlots" name="slots" #slots="ngModel">
+            <div [hidden]="slots.valid && tour.maxSlots>=0">
+              <div class="bg-red-100 mt-2 rounded-lg py-4 px-4 text-base text-red-700 inline-flex items-center w-full"
+                   role="alert">
+                <i class="w-8 fas fa-5"></i>
+                Max. slots is required (positive numbers only)
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex justify-between mt-5">
+          <button
+            class="text-white bg-royal-blue-800 hover:bg-royal-blue-600 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 duration-100 disabled:opacity-50"
+            (click)="onSubmit()"
+            [disabled]="!tourForm.valid || selectedLocation===undefined || selectedGuideman===undefined || tour.maxSlots<0">
+            Save
+          </button>
+          <button [hidden]="tour.id===undefined"
+                  class="text-white bg-red-500 hover:bg-red-400 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 duration-100"
+                  (click)="onDelete()">
+            Delete
+          </button>
+        </div>
+        <div [hidden]="!submitted">
+          <div
+            class="bg-green-100 rounded-lg mt-5 py-5 px-6 mb-3 text-base text-green-700 inline-flex items-center w-full"
+            role="alert">
+            <i class="w-8 fas fa-circle-check"></i>
+            Submit successful
+          </div>
+        </div>
+        <div [hidden]="!deleted">
+          <div
+            class="bg-red-200 rounded-lg mt-5 py-5 px-6 mb-3 text-base text-red-700 inline-flex items-center w-full"
+            role="alert">
+            <i class="w-8 fas fa-circle-check"></i>
+            Delete successful
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

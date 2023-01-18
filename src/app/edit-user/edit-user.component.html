@@ -1,0 +1,141 @@
+<div class="flex">
+  <app-sidebar [menuItem]="'users'"></app-sidebar>
+  <div class="w-4/5">
+    <h1 class="text-5xl font-medium m-10">
+      Edit user
+    </h1>
+    <div class="m-10 pl-10">
+      <form #userForm="ngForm" class="w-full max-w-4xl">
+        <div class="flex flex-wrap -mx-3 mb-6">
+          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label class="mb-2 text-sm font-medium" for="grid-name">
+              First Name
+            </label>
+            <input class="p-4 w-full text-sm bg-white rounded-lg" id="grid-name" type=text placeholder="Jane"
+                   required [(ngModel)]="user.name" name="user.name" #userName="ngModel">
+            <div [hidden]="userName.valid">
+              <div class="bg-red-100 mt-2 rounded-lg py-4 px-4 text-base text-red-700 inline-flex items-center w-full"
+                   role="alert">
+                <i class="w-8 fas fa-user"></i>
+                First name is required
+              </div>
+            </div>
+          </div>
+          <div class="w-full md:w-1/2 px-3">
+            <label class="mb-2 text-sm font-medium" for="grid-surname">
+              Surname
+            </label>
+            <input class="p-4 w-full text-sm bg-white rounded-lg" id="grid-surname" type=text placeholder="Doe"
+                   required [(ngModel)]="user.surname" name="user.surname" #userSurname="ngModel">
+            <div [hidden]="userSurname.valid">
+              <div class="bg-red-100 mt-2 rounded-lg py-4 px-4 text-base text-red-700 inline-flex items-center w-full"
+                   role="alert">
+                <i class="w-8 fas fa-user"></i>
+                Surname is required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-wrap -mx-3 mb-6">
+          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label class="mb-2 text-sm font-medium" for="grid-login">
+              Login
+            </label>
+            <input class="p-4 w-full text-sm bg-white rounded-lg" id="grid-login" type=text placeholder="pencilator2"
+                   required [(ngModel)]="user.login" name="user.login" #userLogin="ngModel">
+            <div [hidden]="userLogin.valid">
+              <div class="bg-red-100 mt-2 rounded-lg py-4 px-4 text-base text-red-700 inline-flex items-center w-full"
+                   role="alert">
+                <i class="w-8 fas fa-user"></i>
+                Login is required
+              </div>
+            </div>
+          </div>
+          <div class="w-full md:w-1/2 px-3">
+            <label class="mb-2 text-sm font-medium" for="grid-password">
+              Password
+            </label>
+            <input class="p-4 w-full text-sm bg-white rounded-lg" id="grid-password" type=password
+                   placeholder="************" (input)="handlePasswordChange($event)" name="user.password">
+            <div [hidden]="!newUser || user.password.length!=0">
+              <div class="bg-red-100 mt-2 rounded-lg py-4 px-4 text-base text-red-700 inline-flex items-center w-full"
+                   role="alert">
+                <i class="w-8 fas fa-key"></i>
+                Password is required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex flex-wrap -mx-3 mb-6">
+          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label class="mb-2 text-sm font-medium" for="grid-email">
+              Email
+            </label>
+            <input class="p-4 w-full text-sm bg-white rounded-lg" id="grid-email" type=email
+                   placeholder="any@finish.com" required [(ngModel)]="user.email" name="user.email" #userEmail="ngModel">
+            <div [hidden]="userEmail.valid">
+              <div class="bg-red-100 mt-2 rounded-lg py-4 px-4 text-base text-red-700 inline-flex items-center w-full"
+                   role="alert">
+                <i class="w-8 fas fa-envelope"></i>
+                Email is required
+              </div>
+            </div>
+          </div>
+          <div class="w-full md:w-1/2 px-3">
+            <label class="mb-2 text-sm font-medium" for="grid-number">
+              Tel. Number
+            </label>
+            <input class="p-4 w-full text-sm bg-white rounded-lg" id="grid-number" type=tel
+                   placeholder="+421 978 123 456" [(ngModel)]="user.telNumber" name="user.telNumber">
+          </div>
+        </div>
+
+        <div class="flex flex-wrap -mx-3 mb-2">
+          <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
+            <label class="mb-2 text-sm font-medium" for="grid-birthdate">
+              Birthdate
+            </label>
+            <input class="p-4 w-full text-sm bg-white rounded-lg" id="grid-birthdate" type=date
+                   required [(ngModel)]="user.birthdate" name="user.birthdate" #userBirthdate="ngModel">
+            <div [hidden]="userBirthdate.valid">
+              <div class="bg-red-100 mt-2 rounded-lg py-4 px-4 text-base text-red-700 inline-flex items-center w-full"
+                   role="alert">
+                <i class="w-8 fas fa-birthday-cake"></i>
+                Birthdate is required
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="flex justify-between mt-5">
+          <button
+            class="text-white bg-royal-blue-800 hover:bg-royal-blue-600 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 duration-100 disabled:opacity-50"
+            [disabled]="!userForm.valid || user.password.length==0"
+            (click)="onSubmit()">
+            Save
+          </button>
+          <button
+            class="text-white bg-red-500 hover:bg-red-400 focus:ring-4 focus:outline-none font-medium rounded-lg text-sm px-4 py-2 duration-100"
+            [hidden]="user.id===undefined" (click)="onDelete()">
+            Delete
+          </button>
+        </div>
+        <div [hidden]="!submitted">
+          <div
+            class="bg-green-100 rounded-lg mt-5 py-5 px-6 mb-3 text-base text-green-700 inline-flex items-center w-full"
+            role="alert">
+            <i class="w-8 fas fa-circle-check"></i>
+            Submit successful
+          </div>
+        </div>
+        <div [hidden]="!deleted">
+          <div
+            class="bg-red-200 rounded-lg mt-5 py-5 px-6 mb-3 text-base text-red-700 inline-flex items-center w-full"
+            role="alert">
+            <i class="w-8 fas fa-circle-check"></i>
+            Delete successful
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
